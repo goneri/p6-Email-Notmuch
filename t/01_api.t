@@ -5,20 +5,20 @@ use Test;
 
 
 my %mails =
-    'first_mail' => "From: bob@example.com\n
-To: jim@example.com\n
+    'first_mail' => "From: bob\@example.com\n
+To: jim\@example.com\n
 Date: Sun, 25 Oct 2015 17:39:52 -0400\n
-Message-ID: <1445809192.4116.1.camel@example.com>\n
+Message-ID: <1445809192.4116.1.camel\@example.com>\n
 Subject: first_mail\n
 \n
 \n
 bob",
-    'second_mail' => "From: jim@example.com\n
-To: bob@example\n
+    'second_mail' => "From: jim\@example.com\n
+To: bob\@example\n
 Date: Sun, 26 Oct 2015 16:19:00 -0100\n
-Message-ID: <21343r43tr@example.com>\n
-In-Reply-To: <1445809192.4116.1.camel@example.com>\n
-References: <1445809192.4116.1.camel@example.com>\n
+Message-ID: <21343r43tr\@example.com>\n
+In-Reply-To: <1445809192.4116.1.camel\@example.com>\n
+References: <1445809192.4116.1.camel\@example.com>\n
 Subject: re: first_mail\n
 \n
 \n
