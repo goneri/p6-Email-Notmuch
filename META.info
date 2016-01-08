@@ -1,0 +1,11 @@
+{
+  "name"        : "Email::Notmuch",
+  "version"     : "0.1",
+  "description" : "lib NotmuchMail binding",
+  "provides"    : {
+    "Email::Notmuch": "lib/Email/Notmuch.pm6"
+  },
+  "author"      : "Gonéri Le Bouder",
+  "depends"     : [ ],
+  "source-url"  : "git://github.com/goneri/p6-Email-Notmuch.git"
+}
