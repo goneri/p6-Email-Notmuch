@@ -1,8 +1,11 @@
 use v6;
+
 use Email::Notmuch;
 use File::Temp;
+
 use Test;
 
+plan 16;
 
 my %mails =
     'first_mail' => "From: bob\@example.com\n
