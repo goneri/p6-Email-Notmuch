@@ -7,7 +7,7 @@ perl6:
   - latest
 before_install:
   - sudo apt-get update -q
-  - sudo apt-get install -y libnotmuch4
+  - sudo apt-get install -y libnotmuch-dev
 install:
   - rakudobrew build-panda
   - panda installdeps .
