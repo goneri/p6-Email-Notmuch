@@ -10,4 +10,5 @@ before_install:
   - sudo apt-get install -y libnotmuch-dev
 install:
   - rakudobrew build-panda
+  - export PATH=~/.rakudobrew/bin:~/.rakudobrew/moar-nom/install/share/perl6/site/bin:~/.rakudobrew/moar-nom/panda/bin:$PATH
   - panda installdeps .
