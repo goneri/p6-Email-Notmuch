@@ -80,6 +80,10 @@ class Message is repr('CPointer') {
         returns Int
         is native('notmuch', v4)
         {*};
+    sub notmuch_message_remove_tag(Message, Str $tag)
+        returns Int
+        is native('notmuch', v4)
+        {*};
     sub notmuch_message_get_message_id(Message)
         returns Str
         is native('notmuch', v4)
@@ -101,8 +105,11 @@ class Message is repr('CPointer') {
     method get_tags() {
         notmuch_message_get_tags(self)
     }
-    method add_tag(Str $tag) {
+    method add_tag(str $tag) {
         notmuch_message_add_tag(self, $tag)
+    }
+    method remove_tag(str $tag) {
+        notmuch_message_remove_tag(self, $tag)
     }
     method get_message_id() {
         notmuch_message_get_message_id(self)
