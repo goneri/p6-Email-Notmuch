@@ -205,12 +205,13 @@ class Database is repr('CPointer') {
         nqp::box_i(nqp::unbox_i(nqp::decont($buf[0])), Database)
     }
 
-    method open(Str $path) {
+    method open(Str $path, Str $mode='r') {
         my $buf = CArray[long].new;
         my $err = CArray[Str].new;
         $buf[0] = 0;
         $err[0] = Str;
-        notmuch_database_open_verbose($path, 0, $buf, $err);
+        my $binmode = $mode eq 'w' ?? 1 !! 0;
+        notmuch_database_open_verbose($path, $binmode, $buf, $err);
         $err[0].throw if $err[0];
         # TODO(Gonéri): I guess there is better way to do that ^^
         nqp::box_i(nqp::unbox_i(nqp::decont($buf[0])), Database)
