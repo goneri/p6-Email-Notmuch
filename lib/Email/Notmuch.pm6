@@ -160,9 +160,17 @@ class Thread is repr('CPointer') {
 class Database is repr('CPointer') {
     sub notmuch_database_create_verbose(Str $path, CArray[long] $database, CArray[Str] $error_message)
         returns Int
+        is native('notmuch', v4)
+        {*};
+    sub notmuch_database_create(Str $path, CArray[long] $database)
+        returns Int
         is native('notmuch')
         {*};
     sub notmuch_database_open_verbose(Str $path, Int $mode, CArray[long] $database, CArray[Str] $error_message)
+        returns Int
+        is native('notmuch', v4)
+        {*};
+    sub notmuch_database_open(Str $path, Int $mode, CArray[long] $database)
         returns Int
         is native('notmuch')
         {*};
@@ -198,21 +206,16 @@ class Database is repr('CPointer') {
         my $buf = CArray[long].new;
         my $err = CArray[Str].new;
         $buf[0] = 0;
-        $err[0] = Str;
-        notmuch_database_create_verbose($path, $buf, $err);
-        $err[0].throw if $err[0];
+        notmuch_database_create($path, $buf);
         # TODO(Gonéri): I guess there is better way to do that ^^
         nqp::box_i(nqp::unbox_i(nqp::decont($buf[0])), Database)
     }
 
     method open(Str $path, Str $mode='r') {
         my $buf = CArray[long].new;
-        my $err = CArray[Str].new;
         $buf[0] = 0;
-        $err[0] = Str;
         my $binmode = $mode eq 'w' ?? 1 !! 0;
-        notmuch_database_open_verbose($path, $binmode, $buf, $err);
-        $err[0].throw if $err[0];
+        notmuch_database_open($path, $binmode, $buf);
         # TODO(Gonéri): I guess there is better way to do that ^^
         nqp::box_i(nqp::unbox_i(nqp::decont($buf[0])), Database)
     }
