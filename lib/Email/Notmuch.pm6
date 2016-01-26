@@ -77,11 +77,11 @@ class Message is repr('CPointer') {
         is native('notmuch')
         {*};
     sub notmuch_message_add_tag(Message, Str $tag)
-        returns Int
+        returns int32
         is native('notmuch')
         {*};
     sub notmuch_message_remove_tag(Message, Str $tag)
-        returns Int
+        returns int32
         is native('notmuch')
         {*};
     sub notmuch_message_get_message_id(Message)
@@ -159,19 +159,19 @@ class Thread is repr('CPointer') {
 
 class Database is repr('CPointer') {
     sub notmuch_database_create_verbose(Str $path, CArray[long] $database, CArray[Str] $error_message)
-        returns Int
+        returns int32
         is native('notmuch', v4)
         {*};
     sub notmuch_database_create(Str $path, CArray[long] $database)
-        returns Int
+        returns int32
         is native('notmuch')
         {*};
-    sub notmuch_database_open_verbose(Str $path, Int $mode, CArray[long] $database, CArray[Str] $error_message)
-        returns Int
+    sub notmuch_database_open_verbose(Str $path, int32 $mode, CArray[long] $database, CArray[Str] $error_message)
+        returns int32
         is native('notmuch', v4)
         {*};
-    sub notmuch_database_open(Str $path, Int $mode, CArray[long] $database)
-        returns Int
+    sub notmuch_database_open(Str $path, int32 $mode, CArray[long] $database)
+        returns int32
         is native('notmuch')
         {*};
     sub notmuch_database_get_all_tags(Database)
@@ -179,23 +179,23 @@ class Database is repr('CPointer') {
         is native('notmuch')
         {*};
     sub notmuch_database_add_message(Database, Str $filename, CArray[long] $message)
-        returns Int
+        returns int32
         is native('notmuch')
         {*};
     sub notmuch_database_find_message_by_filename(Database, Str $filename, CArray[long] $message)
-        returns Int
+        returns int32
         is native('notmuch')
         {*};
     sub notmuch_database_get_version(Database)
-        returns Int
+        returns int32
         is native('notmuch')
         {*};
     sub notmuch_database_close(Database)
-        returns Int
+        returns int32
         is native('notmuch')
         {*};
     sub notmuch_database_destroy(Database)
-        returns Int
+        returns int32
         is native('notmuch')
         {*};
 
