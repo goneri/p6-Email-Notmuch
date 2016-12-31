@@ -10,5 +10,5 @@ perl6:
   - latest
 install:
   - rakudobrew build-panda
-  - export PATH=~/.rakudobrew/bin:~/.rakudobrew/moar-nom/install/share/perl6/site/bin:~/.rakudobrew/moar-nom/panda/bin:$PATH
   - panda installdeps .
+  - panda install .
