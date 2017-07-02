@@ -182,6 +182,10 @@ class Database is repr('CPointer') {
         returns int32
         is native('notmuch')
         {*};
+    sub notmuch_database_find_message(Database, Str $id, CArray[long] $message)
+        returns int32
+        is native('notmuch')
+        {*};
     sub notmuch_database_find_message_by_filename(Database, Str $filename, CArray[long] $message)
         returns int32
         is native('notmuch')
@@ -227,6 +231,16 @@ class Database is repr('CPointer') {
         $buf[0] = 0;
         notmuch_database_add_message(self, $filename, $buf);
         fail "add_message has failed" unless $buf[0];
+        my $message = nqp::box_i(nqp::unbox_i(nqp::decont($buf[0])), Message);
+        @.subresources.append($message);
+        return $message;
+    }
+
+    method find_message(Str $id) {
+        my $buf = CArray[long].new;
+        $buf[0] = 0;
+        notmuch_database_find_message(self, $id, $buf);
+        fail "find_message has failed" unless $buf[0];
         my $message = nqp::box_i(nqp::unbox_i(nqp::decont($buf[0])), Message);
         @.subresources.append($message);
         return $message;

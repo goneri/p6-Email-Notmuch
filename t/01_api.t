@@ -5,7 +5,7 @@ use File::Temp;
 
 use Test;
 
-plan 21;
+plan 22;
 
 my %mails =
     'first_mail' => "From: bob\@example.com\n
@@ -64,9 +64,12 @@ isa-ok $messages, Messages;
 ok $messages.all() == 2;
 
 my $message = $database.find_message_by_filename($test_dir ~ '/first_mail.eml');
-isa-ok $message.get_message_id(), Str;
+my $mid = $message.get_message_id();
+isa-ok $mid, Str;
 isa-ok $message.get_thread_id(), Str;
 
+my $message = $database.find_message($mid);
+isa-ok $message.get_message_id(), Str;
 
 $query = Query.new($database, 'thread:' ~ $message.get_thread_id());
 my $threads = $query.search_threads();
