@@ -68,7 +68,7 @@ my $mid = $message.get_message_id();
 isa-ok $mid, Str;
 isa-ok $message.get_thread_id(), Str;
 
-my $message = $database.find_message($mid);
+$message = $database.find_message($mid);
 isa-ok $message.get_message_id(), Str;
 
 $query = Query.new($database, 'thread:' ~ $message.get_thread_id());
