@@ -207,6 +207,7 @@ class Database is repr('CPointer') {
         my $err = CArray[Str].new;
         $buf[0] = 0;
         notmuch_database_create($path, $buf);
+        fail "create has failed" unless $buf[0];
         # TODO(Gonéri): I guess there is better way to do that ^^
         nqp::box_i(nqp::unbox_i(nqp::decont($buf[0])), Database)
     }
@@ -216,6 +217,7 @@ class Database is repr('CPointer') {
         $buf[0] = 0;
         my $binmode = $mode eq 'w' ?? 1 !! 0;
         notmuch_database_open($path, $binmode, $buf);
+        fail "open has failed" unless $buf[0];
         # TODO(Gonéri): I guess there is better way to do that ^^
         nqp::box_i(nqp::unbox_i(nqp::decont($buf[0])), Database)
     }
@@ -224,6 +226,7 @@ class Database is repr('CPointer') {
         my $buf = CArray[long].new;
         $buf[0] = 0;
         notmuch_database_add_message(self, $filename, $buf);
+        fail "add_message has failed" unless $buf[0];
         my $message = nqp::box_i(nqp::unbox_i(nqp::decont($buf[0])), Message);
         @.subresources.append($message);
         return $message;
@@ -233,6 +236,7 @@ class Database is repr('CPointer') {
         my $buf = CArray[long].new;
         $buf[0] = 0;
         notmuch_database_find_message_by_filename(self, $filename, $buf);
+        fail "find_message_by_filename has failed" unless $buf[0];
         my $message = nqp::box_i(nqp::unbox_i(nqp::decont($buf[0])), Message);
         @.subresources.append($message);
         return $message;

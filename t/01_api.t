@@ -5,7 +5,7 @@ use File::Temp;
 
 use Test;
 
-plan 19;
+plan 21;
 
 my %mails =
     'first_mail' => "From: bob\@example.com\n
@@ -31,6 +31,10 @@ jjim";
 my $test_dir = tempdir();
 ok mkdir($test_dir);
 my $database = Database.create($test_dir);
+dies-ok {Database.open($test_dir, 'w')}, 'second open() raises exception';
+
+my $database_ro = Database.open($test_dir);
+
 ok $database.get_version();
 
 for keys %mails -> $name {
@@ -40,6 +44,7 @@ for keys %mails -> $name {
 }
 isa-ok $database.get_version(), Int;
 my $first_message = $database.add_message($test_dir ~ '/first_mail.eml');
+dies-ok {$database_ro.add_message($test_dir ~ '/first_mail.eml')}, 'read only DB refuse new message';
 isa-ok $first_message, Message;
 
 ok $first_message.get_header('from') eq 'bob@example.com';
