@@ -76,11 +76,15 @@ my $threads = $query.search_threads();
 my $thread_from_query = $threads.get();
 ok $thread_from_query.get_thread_id() eq $message.get_thread_id();
 
+# Some extra destroy() calls, those are not mandatory, the final DB
+# close() will do the clean up
+$threads.destroy();
+$message.destroy();
+
 
 $query = Query.new($database, 'thread:this_thread_doesnt_exist');
 $threads = $query.search_threads();
 ok $threads.all() == 0, 'search_threads return 0 thread';
-
-
+$threads.destroy();
 
 ok $database.close() == NOTMUCH_STATUS_SUCCESS;
